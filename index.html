@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Happy Birthday — Radhu</title>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg1:#eaf8ff;
+    --bg2:#dff6ff;
+    --accent:#7ec8ff;
+    --text:#05384a;
+    --glass: rgba(255,255,255,0.88);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:'Patrick Hand', system-ui, -apple-system, "Segoe UI", Roboto; background:linear-gradient(180deg,var(--bg1),var(--bg2));color:var(--text);-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+
+  .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:18px;position:relative;overflow:hidden}
+  .card{width:100%;max-width:720px;background:var(--glass);border-radius:18px;padding:20px;box-shadow:0 18px 40px rgba(6,45,69,0.06);text-align:center;backdrop-filter: blur(6px);transform-origin:center;perspective:1200px}
+  .nav{display:flex;gap:10px;justify-content:center;margin-top:12px}
+  .dot{width:10px;height:10px;border-radius:50%;background:rgba(5,56,74,0.08);display:inline-block}
+  .dot.active{background:var(--accent)}
+  .section{display:none;opacity:0;transform:translateY(12px);transition:opacity .45s ease, transform .45s ease}
+  .section.active{display:block;opacity:1;transform:translateY(0)}
+  .title{font-size: clamp(1.8rem, 6vw, 3rem);margin:6px 0 8px;color:var(--text);letter-spacing:0.4px}
+  .subtitle{font-size:1.05rem;color:#075b6e;margin-bottom:8px}
+  .photo{width:92%;max-width:640px;border-radius:14px;display:block;margin:14px auto;border:4px solid rgba(126,200,255,0.12);box-shadow:0 18px 36px rgba(6,45,69,0.06)}
+  .btn{display:inline-block;background:var(--accent);color:#003443;padding:12px 20px;border-radius:28px;font-weight:700;text-decoration:none;box-shadow:0 10px 24px rgba(0,0,0,0.08);margin:10px 6px;cursor:pointer;border:none;font-family:'Patrick Hand'}
+  .btn.ghost{background:transparent;border:1px solid rgba(5,56,74,0.08);color:var(--text)}
+  .message{font-size:1.05rem;line-height:1.5;color:#06485f;max-width:660px;margin:12px auto;text-align:left;padding:0 10px}
+  .hint{font-size:.92rem;color:#0a5a67;margin-top:10px}
+  .bubbles, .hearts, .stream { position: fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden }
+  .bubble, .flow, .heartItem, .dotItem { position:absolute }
+  .bubble{border-radius:50%; background:rgba(126,200,255,0.12); filter:blur(3px); animation:rise linear infinite}
+  @keyframes rise{from{transform:translateY(120vh) scale(.6);opacity:.03}to{transform:translateY(-20vh) scale(1.2);opacity:.6}}
+  @keyframes floatHeart{from{transform:translateY(110vh) scale(.8) rotate(0deg);opacity:0}30%{opacity:0.9}to{transform:translateY(-40vh) scale(1.2) rotate(360deg);opacity:0}}
+  .typed-caret { display:inline-block; width:7px; height:20px; background:var(--accent); margin-left:6px; vertical-align:bottom; animation:blink 1s steps(2,start) infinite; border-radius:2px}
+  @keyframes blink{50%{opacity:0}100%{opacity:1}}
+  .gift-wrap{display:flex;align-items:center;justify-content:center;height:260px}
+  .small-note{font-size:.92rem;color:#0a5566;margin-top:10px}
+  /* typed area - preserve newlines and bullets */
+  #typedText{white-space:pre-wrap;text-align:left;color:#074c61;font-size:1.02rem;min-height:120px;padding:12px}
+  /* barrel roll */
+  @keyframes barrelOut {0%{transform: rotateY(0deg) translateZ(0) scale(1);opacity:1}50%{transform: rotateY(90deg) translateZ(40px) scale(.995);opacity:0.95}100%{transform: rotateY(180deg) translateZ(0) scale(.995);opacity:0.92}}
+  @keyframes barrelIn  {0%{transform: rotateY(180deg) translateZ(0) scale(.995);opacity:0.92}50%{transform: rotateY(270deg) translateZ(40px) scale(.995);opacity:0.95}100%{transform: rotateY(360deg) translateZ(0) scale(1);opacity:1}}
+  .card.barrel-out{ animation: barrelOut 640ms cubic-bezier(.2,.9,.2,1) forwards }
+  .card.barrel-in { animation: barrelIn 640ms cubic-bezier(.2,.9,.2,1) forwards }
+  #giftPlate:focus{outline:3px solid rgba(126,200,255,0.22);border-radius:8px}
+  .vis-hidden{position:absolute;left:-9999px}
+  .card, .btn { user-select:none; -webkit-user-select:none }
+  @media(min-width:900px){ .card{padding:28px} .message{font-size:1.08rem} }
+</style>
+</head>
+<body>
+  <div class="bubbles" aria-hidden="true"></div>
+  <div class="hearts" aria-hidden="true"></div>
+  <div class="stream" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <div class="card" role="main" aria-label="Birthday mini site">
+
+      <!-- SECTION 1 -->
+      <section id="s1" class="section active" aria-labelledby="t1">
+        <h1 id="t1" class="title">Happy Birthday, Radhu! 🎉</h1>
+        <div class="subtitle">Wishing you a calm, bright day.</div>
+        <div style="max-width:640px;margin:0 auto">
+          <p class="message" style="text-align:center; font-family:'Patrick Hand';">
+            Today is for small smiles and quiet moments. Hope you get to enjoy every calm little thing that makes you happy.
+          </p>
+        </div>
+        <div style="margin-top:8px">
+          <button class="btn" onclick="showSection(2)" aria-label="See the message">See the message</button>
+        </div>
+        <div class="hint">Tap to continue — best viewed on mobile</div>
+      </section>
+
+      <!-- SECTION 2 -->
+      <section id="s2" class="section" aria-labelledby="t2">
+        <h1 id="t2" class="title">A little wish</h1>
+        <img src="https://uploads.onecompiler.io/43c4zwnjr/44aame4jf/1000134395.png" alt="Radhu" class="photo">
+        <div class="message">
+          <strong>Happy Birthday!</strong><br><br>
+          May this year bring steady progress in your studies, calm days with family, and lots of small moments that make you smile. Keep doing what you love, and enjoy your day — from a friend.
+        </div>
+        <div>
+          <button class="btn" onclick="showSection(1)">Back</button>
+          <button class="btn" onclick="showSection(3)">Open surprise</button>
+        </div>
+      </section>
+
+      <!-- SECTION 3: simple typed pointers (no gift / no timer) -->
+      <section id="s3" class="section" aria-labelledby="t3">
+        <h1 id="t3" class="title">Small things I notice</h1>
+
+        <div style="max-width:520px;margin:0 auto;background:linear-gradient(180deg,#fff,#fbfeff);border-radius:12px;padding:12px;border:1px solid rgba(126,200,255,0.22);box-shadow:0 12px 30px rgba(12,40,60,0.05);font-family:'Patrick Hand'">
+          <div style="margin-top:8px;font-weight:700;color:#0b4f66">Little things I love</div>
+          <div id="typedText" style="margin-top:8px;"></div>
+        </div>
+
+        <div style="margin-top:12px">
+          <button class="btn" onclick="showSection(2)">Back</button>
+        </div>
+      </section>
+
+      <div class="nav" aria-hidden="true" style="margin-top:14px">
+        <span id="dot1" class="dot active"></span>
+        <span id="dot2" class="dot"></span>
+        <span id="dot3" class="dot"></span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- optional OST (keeps same as before) -->
+  <audio id="ost" src="staywithme.mp3" loop preload="none"></audio>
+
+<script>
+/* ---------- navigation with barrel-roll ---------- */
+function showSection(n){
+  const card = document.querySelector('.card');
+  if(card.classList.contains('animating')) return;
+
+  let currentIndex = 1;
+  for(let i=1;i<=3;i++){
+    if(document.getElementById('s'+i).classList.contains('active')){ currentIndex = i; break; }
+  }
+  if(currentIndex === n) return;
+
+  card.classList.add('animating','barrel-out');
+  const midway = 320;
+  setTimeout(()=>{
+    for(let i=1;i<=3;i++){
+      const s = document.getElementById('s'+i);
+      const dot = document.getElementById('dot'+i);
+      if(i===n){ s.classList.add('active'); dot.classList.add('active'); }
+      else { s.classList.remove('active'); dot.classList.remove('active'); }
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    card.classList.remove('barrel-out');
+    card.classList.add('barrel-in');
+
+    // start typing when section 3 becomes visible
+    if(n===3){
+      // small delay to let the animation finish visually
+      setTimeout(startTypedReveal, 260);
+    }
+  }, midway);
+
+  card.addEventListener('animationend', function onEnd(){
+    card.classList.remove('barrel-in','barrel-out','animating');
+    card.removeEventListener('animationend', onEnd);
+  });
+}
+
+/* ---------- attempt OST playback (unchanged) ---------- */
+const ost = document.getElementById('ost');
+let ostStarted = false;
+async function tryStartOST(){
+  if(ostStarted) return;
+  try {
+    await ost.play();
+    ostStarted = true;
+  } catch(e){
+    document.addEventListener('pointerdown', async function resumeOnGesture(){
+      try { await ost.play(); ostStarted = true; } catch(e) {}
+      document.removeEventListener('pointerdown', resumeOnGesture);
+    }, { once:true });
+  }
+}
+tryStartOST();
+
+/* ---------- decorative visuals (unchanged) ---------- */
+(function makeBubbles(){
+  const root = document.querySelector('.bubbles');
+  for(let i=0;i<14;i++){
+    const b = document.createElement('div');
+    b.className = 'bubble';
+    const size = 8 + Math.random()*48;
+    b.style.width = size + 'px';
+    b.style.height = size + 'px';
+    b.style.left = (Math.random()*100) + 'vw';
+    b.style.bottom = (-20 - Math.random()*20) + 'vh';
+    b.style.animationDuration = (10 + Math.random()*14) + 's';
+    b.style.animationDelay = (Math.random()*6) + 's';
+    root.appendChild(b);
+  }
+})();
+(function makeFlow(){
+  const root = document.querySelector('.stream');
+  setInterval(()=>{
+    const dot = document.createElement('div');
+    dot.className = 'dotItem';
+    const size = 6 + Math.random()*12;
+    dot.style.width = dot.style.height = size + 'px';
+    dot.style.left = (5 + Math.random()*90) + 'vw';
+    dot.style.bottom = '-6vh';
+    dot.style.background = ['rgba(126,200,255,0.12)','rgba(173,230,255,0.12)','rgba(160,220,255,0.12)'][Math.floor(Math.random()*3)];
+    root.appendChild(dot);
+    const dx = (Math.random()*120 - 60);
+    const duration = 9000 + Math.random()*9000;
+    dot.animate([{ transform: `translate(0px, 0px)`, opacity: 0.9 }, { transform: `translate(${dx}px, -320px)`, opacity: 0.05 }], { duration: duration, easing: 'linear' });
+    setTimeout(()=>dot.remove(), duration + 150);
+  }, 700);
+})();
+(function makeHearts(){
+  const root = document.querySelector('.hearts');
+  setInterval(()=>{
+    const h = document.createElement('div');
+    h.className = 'heartItem';
+    h.innerText = '💕';
+    h.style.left = Math.random()*100 + 'vw';
+    const size = 12 + Math.random()*18;
+    h.style.fontSize = size + 'px';
+    h.style.bottom = '-6vh';
+    h.style.animation = `floatHeart ${8 + Math.random()*10}s linear forwards`;
+    root.appendChild(h);
+    setTimeout(()=>h.remove(), (8 + Math.random()*10)*1000 + 200);
+  }, 650);
+})();
+
+/* ---------- typed helper ---------- */
+const typedText = document.getElementById('typedText');
+
+function typeText(targetEl, text, speed = 60, cb){
+  let i=0;
+  targetEl.textContent = '';
+  const caret = document.createElement('span');
+  caret.className='typed-caret';
+  targetEl.parentNode.appendChild(caret);
+  const t = setInterval(()=>{
+    targetEl.textContent += text.charAt(i);
+    i++;
+    if(i>=text.length){
+      clearInterval(t);
+      caret.remove();
+      if(cb) cb();
+    }
+  }, speed);
+}
+
+/* ---------- starter for section 3 reveal ---------- */
+function startTypedReveal(){
+  if(!typedText) return;
+  // the bulleted text (pointers)
+  const text = `• The calm way you handle things.\n• How you notice small, thoughtful gestures.\n• Your soft, genuine reactions — they feel real.\n• The warmth you show your family.\n• Your love for gentle, aesthetic moments.\n• How you quietly make people around you feel safe.\n\nSmall, quiet things — they matter. 🤍`;
+  typeText(typedText, text, 36);
+}
+
+/* Start typed reveal automatically if page initially loads on section 3 */
+if(document.getElementById('s3').classList.contains('active')){
+  setTimeout(startTypedReveal, 420);
+}
+
+/* Keyboard support for dots (optional) */
+document.querySelectorAll('.dot').forEach((d, idx)=>{
+  d.addEventListener('click', ()=> showSection(idx+1));
+});
+</script>
+</body>
+</html>
